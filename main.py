@@ -1,6 +1,7 @@
 from selenium import webdriver
 import time
-import winsound
+#import winsound
+import os
 
 # define alert param
 duration = 1000  # milliseconds
@@ -17,10 +18,10 @@ while(True):
 
     # get web page
     driver = webdriver.Firefox()
-    # driver.set_window_position(-2000, 0)
+    driver.set_window_position(2000, 0)
     driver.get(urlpage)
     time.sleep(20)
-    # execute script to scroll down the page
+    # execute script to select 1st origin timeslot and scroll down the page
     driver.execute_script("document.getElementById('1').click();window.scrollTo(0, document.body.scrollHeight);var lenOfPage=document.body.scrollHeight;return lenOfPage")
 
 
@@ -32,9 +33,11 @@ while(True):
         if "21/06/2019 21:15" in result.text:
             print("FOUND!")
             while (True):
-                winsound.Beep(freq, duration)
+                #winsound.Beep(freq, duration)
+                os.system('play -nq -t alsa synth {} sine {}'.format(duration, freq))
         else:
             print("NOPE :(")
+
 
 
     driver.quit()
